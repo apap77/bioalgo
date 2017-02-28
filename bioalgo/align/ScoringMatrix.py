@@ -1,6 +1,11 @@
 class ScoringMatrix:
 	def __init__(self, matrixId):
-		self.aminoAcids = "ACDEFGHIKLMNPQRSTVWY"
+
+		if matrixId in ['blosum62', 'pam250']:
+			self.characters = 'ACDEFGHIKLMNPQRSTVWY'
+		else:
+			self.characters = 'ATCG'
+
 		self.scoreMat = self._parse_scoring_matrix(matrixId)
 	
 	def __getitem__(self, i):
@@ -8,9 +13,10 @@ class ScoringMatrix:
 
 	def _parse_scoring_matrix(self, matrixId):
 		scoreMat = {}
+
 		with open('./data/%s.txt' % matrixId) as inFile:
-			for aa, line in zip(self.aminoAcids, inFile.readlines()):
-				scoreMat[aa] = dict(zip(self.aminoAcids, list(map(int, line.strip().split()))))
+			for c, line in zip(self.characters, inFile.readlines()):
+				scoreMat[c] = dict(zip(self.characters, list(map(int, line.strip().split()))))
 
 		return scoreMat
 
