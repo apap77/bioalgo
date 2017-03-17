@@ -66,9 +66,3 @@ class Peptide(Seq):
 		self.elements = ['A', 'U', 'G', 'C']
 
 		self._validate_element()
-
-if __name__ == '__main__':
-	d = DNA('ATTG')
-
-	print(d.transcribe())
-

@@ -1,5 +1,6 @@
 import sys; sys.path.append('../')
 import bioalgo.seq as seq
+from bioalgo.seq import codon
 import unittest
 
 class SeqTest(unittest.TestCase):
@@ -10,13 +11,38 @@ class SeqTest(unittest.TestCase):
 	def test_rna_nucleotide_assertion(self):
 		self.assertRaises(AssertionError, seq.RNA, 'ATGCU')
 
-if __name__ == '__main__':
-	d = seq.RNA('AUGAAUGAUUGA')
-	kc = d.kmer_composition(k=3)
-	print(kc)
-	print(d.translate(frameStart=-1))
-	print(d.reverse_complement())
+	def test_reverse_complement(self):
+		d = seq.DNA('ATGC')
+		r = seq.RNA('AUGC')
 
-	d = seq.DNA('ATGTTATGGATAG')
-	kc = d.kmer_composition(k=2)
-	print(kc)
+		self.assertEqual(d.reverse_complement(), 'GCAT')
+		self.assertEqual(r.reverse_complement(), 'GCAU')
+
+	def test_transcribe(self):
+		d = seq.DNA('ATGC')
+		self.assertEqual(d.transcribe(), 'GCAU')
+		self.assertEqual(d.transcribe(reverse=False), 'UACG')
+
+	def test_translate(self):
+		r = seq.RNA('AUGGCCAUGGCGCCCAGAACUGAGAUCAAUAGUACCCGUAUUAACGGGUGA')
+		self.assertEqual(r.translate(), 'MAMAPRTEINSTRING*')
+
+	def test_kmer_composition(self):
+		d = seq.DNA('ATTGCCATTGGC')
+		self.assertEqual(d.kmer_composition(k=3)['ATT'], 2)
+
+class CodonTest(unittest.TestCase):
+
+	def setUp(self):
+		self.c = codon.CodonTable()
+
+	def test_codon(self):
+		self.assertEqual(self.c['UUU'], 'F')
+
+	def test_stop_codon(self):
+		self.assertEqual(self.c['UGA'], '*')
+		self.assertEqual(self.c['UAG'], '*')
+		self.assertEqual(self.c['UAA'], '*')
+
+	def test_get_codons(self):
+		self.assertEqual(set(self.c.get_codons('T')), set(['ACU', 'ACC', 'ACA', 'ACG']))
