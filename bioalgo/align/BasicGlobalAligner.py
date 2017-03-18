@@ -1,4 +1,4 @@
-from ScoringMatrix import ScoringMatrix
+from bioalgo.align.ScoringMatrix import ScoringMatrix
 
 class BasicGlobalAligner:
 
@@ -80,7 +80,12 @@ class BasicGlobalAligner:
 		self.seq2Result = ''.join(seq2Augmentation[::-1])
 
 	def __str__(self):
-		return '\n'.join([self.seq1Result, self.seq2Result])
+		try:
+			return '\n'.join([self.seq1Result, self.seq2Result])
+		except AttributeError:
+			raise ValueError('Please call align() first.')
+
+		
 
 if __name__ == '__main__':
 	seq1 = 'PLEASANTLY'

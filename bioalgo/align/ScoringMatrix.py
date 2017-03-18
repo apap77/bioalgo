@@ -14,7 +14,7 @@ class ScoringMatrix:
 	def _parse_scoring_matrix(self, matrixId):
 		scoreMat = {}
 
-		with open('./data/%s.txt' % matrixId) as inFile:
+		with open('bioalgo/align/data/%s.txt' % matrixId) as inFile:
 			for c, line in zip(self.characters, inFile.readlines()):
 				scoreMat[c] = dict(zip(self.characters, list(map(int, line.strip().split()))))
 
