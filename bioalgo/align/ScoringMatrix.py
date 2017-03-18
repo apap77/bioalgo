@@ -19,6 +19,3 @@ class ScoringMatrix:
 				scoreMat[c] = dict(zip(self.characters, list(map(int, line.strip().split()))))
 
 		return scoreMat
-
-if __name__ == '__main__':
-	print(ScoringMatrix('blosum62')['A']['A'])
