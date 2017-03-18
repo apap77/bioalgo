@@ -84,14 +84,3 @@ class BasicGlobalAligner:
 			return '\n'.join([self.seq1Result, self.seq2Result])
 		except AttributeError:
 			raise ValueError('Please call align() first.')
-
-		
-
-if __name__ == '__main__':
-	seq1 = 'PLEASANTLY'
-	seq2 = 'MEANLY'
-	g = BasicGlobalAligner(seq1, seq2)
-
-	g.align()
-	print(g)
-
