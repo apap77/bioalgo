@@ -21,6 +21,7 @@ class AssemblyTest(unittest.TestCase):
 		s = 'AA -> AT\nAT -> TG, TG, TG\nCA -> AT\nCC -> CA\nGA -> AT\nGC -> CC\nGG -> GG, GA\nGT -> TT\nTA -> AA\nTG -> GC, GG, GT'
 		self.assertEqual(str(self.dbText), s)
 
-	def test_de_brujin_reconstruct_text(self):
-		self.assertEqual(self.dbText.reconstruct_text(), 'TAATGCCATGGGATGTT')
-		self.assertEqual(self.dbText2.reconstruct_text(), 'TAATGCCATGGGATGTT')
+	def test_de_brujin_reconstruct(self):
+		self.assertEqual(self.dbText.reconstruct(), 'TAATGCCATGGGATGTT')
+		self.assertEqual(self.dbText2.reconstruct(), 'TAATGCCATGGGATGTT')
+		self.assertEqual(self.dbPattern.reconstruct(), 'CAGGGGAGG')

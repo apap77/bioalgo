@@ -15,7 +15,7 @@ class DeBrujin:
 		for key, values in self.graph.items():
 			self.edges.extend([(key, value) for value in values])
 
-	def reconstruct_text(self):
+	def reconstruct(self):
 		eulerianPath = eulerian_path(self.edges)
 		return eulerianPath[0][0] + ''.join([src[-1] for src, dst in eulerianPath[1:]]) + eulerianPath[-1][1][-1]
 
