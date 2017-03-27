@@ -5,9 +5,11 @@ class AssemblyTest(unittest.TestCase):
 
 	def setUp(self):
 		patterns = ['GAGG', 'CAGG', 'GGGG', 'GGGA', 'CAGG', 'AGGG', 'GGAG']
+		patterns2 = ['CTTA', 'ACCA', 'TACC', 'GGCT', 'GCTT', 'TTAC']
 		self.dbText = genome.assembly.DeBrujin('TAATGCCATGGGATGTT', k=3)
 		self.dbText2 = genome.assembly.DeBrujin('TAATGCCATGGGATGTT', k=4)
 		self.dbPattern = genome.assembly.DeBrujin(patterns, k=4)
+		self.dbPattern2 = genome.assembly.DeBrujin(patterns2, k=4)
 
 	def test_de_brujin(self):
 		self.assertEqual(self.dbText['TA'], ['AA'])
@@ -24,4 +26,5 @@ class AssemblyTest(unittest.TestCase):
 	def test_de_brujin_reconstruct(self):
 		self.assertEqual(self.dbText.reconstruct(), 'TAATGCCATGGGATGTT')
 		self.assertEqual(self.dbText2.reconstruct(), 'TAATGCCATGGGATGTT')
-		self.assertEqual(self.dbPattern.reconstruct(), 'CAGGGGAGG')
+		self.assertRaises(AssertionError, self.dbPattern.reconstruct)
+		self.assertEqual(self.dbPattern2.reconstruct(), 'GGCTTACCA')

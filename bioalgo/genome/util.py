@@ -11,8 +11,11 @@ def eulerian_path(edges):
 		outDegree[edge[0]] += 1
 		inDegree[edge[1]] += 1
 
-	start = [i for i in outDegree.keys() if outDegree[i] - inDegree[i] == 1][0]
-	end = [i for i in inDegree.keys() if inDegree[i] - outDegree[i] == 1][0]
+	startPoints = [i for i in outDegree.keys() if outDegree[i] - inDegree[i] == 1]
+	endPoints = [i for i in inDegree.keys() if inDegree[i] - outDegree[i] == 1]
+	assert len(startPoints) == 1 and len(endPoints) == 1, "The graph does not have eulerian path."
+
+	start, end = startPoints[0], endPoints[0]
 
 	edges.append((end, start))
 
