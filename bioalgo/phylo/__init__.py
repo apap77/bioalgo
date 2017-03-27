@@ -1,1 +1,1 @@
-from newick import *
+from bioalgo.phylo.newick import *
