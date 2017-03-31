@@ -3,7 +3,7 @@ python:
   - "3.4"
   - "3.5"
 install:
-  - pip install numpy
+  - pip install numpy 
   - pip install matplotlib
   - pip install coveralls
 script:
